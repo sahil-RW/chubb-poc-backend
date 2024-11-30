@@ -6,8 +6,24 @@ const cors = require('cors'); // Import cors middleware
 const app = express();
 const PORT = 5000;
 
-// Enable CORS
-app.use(cors());
+// Enable CORS with specific options
+const allowedOrigins = [
+  'http://localhost:3000', // Local development URL
+  'https://chubb-poc.vercel.app/' // Vercel deployment URL
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      // Allow requests with no origin (e.g., server-to-server requests)
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS policy'));
+    }
+  },
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type']
+}));
 
 // Set up file upload using multer
 const storage = multer.memoryStorage();
