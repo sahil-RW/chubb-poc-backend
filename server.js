@@ -9,7 +9,7 @@ const PORT = 5000;
 // Enable CORS with specific options
 const allowedOrigins = [
   'http://localhost:3000', // Local development URL
-  'https://chubb-poc.vercel.app/' // Vercel deployment URL
+  'https://chubb-poc.vercel.app' // Vercel deployment URL
 ];
 
 app.use(cors({
